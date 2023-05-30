@@ -60,7 +60,7 @@ export const createListController = async (req, res) => {
   try {
     const { title, description, id } = req.body;
     const list = await listModel.create({
-      title , description , user :id
+      title , description , user :id , completed:false
     })
     await list.save();
     res.status(200).send({ success: true, message: "List Saved Successfully" });
@@ -69,3 +69,15 @@ export const createListController = async (req, res) => {
     res.status(500).send({ success: false, message: "Error in creating List" });
   }
 };
+
+export const getUsercontroller = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await userModel.findById(id);
+    res.status(200).send({ success: true, message: "User Getting Succesfully", user });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ success: false, message: "Error in Getting User", error });
+  }
+}

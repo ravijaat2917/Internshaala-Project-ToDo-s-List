@@ -4,17 +4,28 @@ import dotenv from "dotenv";
 import connectDB from "./DataBase/connectDB.js";
 import morgan from "morgan";
 import userRoutes from "./Routes/user.Routes.js";
+import listRoutes from "./Routes/lists.Routes.js";
 
-dotenv.config();
+// Creating App Instance from Express
 const app = express();
+
+// Configure Required Middlewares
+dotenv.config();
 app.use(express.json());
 app.use(cors());
-connectDB();
 app.use(morgan("dev"));
-app.use('/api/v1',userRoutes);
 
+// Connecting Database (MongoDB)
+connectDB();
+
+// Making Routes
+app.use("/api/v1", userRoutes);
+app.use("/api/v1", listRoutes);
+
+// Creating Port for Listening
 const PORT = process.env.PORT;
 
+// Listen App On Server
 app.listen(PORT, () => {
   console.log(`Server Listening on PORT ${PORT}`);
 });

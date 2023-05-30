@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createListController,
+  getUsercontroller,
   loginController,
   registerController,
 } from "../Controllers/userController.js";
@@ -19,5 +20,8 @@ router.post("/login", loginController);
 
 // POST || Create New List
 router.post("/create-list", createListController);
+
+// POST || Get Single User
+router.post('/get-user', getUsercontroller);
 
 export default router;

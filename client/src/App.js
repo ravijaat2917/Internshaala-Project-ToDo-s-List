@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import EditListPage from "./Pages/EditListPage";
+import RecentlyDeletedPage from "./Pages/RecentlyDeletedPage";
 
 const App = () => {
   let routes = useRoutes([
@@ -19,6 +21,14 @@ const App = () => {
     {
       path: "/login",
       element:<Login/>
+    },
+    {
+      path: '/edit-list/:id',
+      element:<EditListPage/>
+    },
+    {
+      path: '/recently-deleted',
+      element:<RecentlyDeletedPage/>
     }
   ]);
   return routes;

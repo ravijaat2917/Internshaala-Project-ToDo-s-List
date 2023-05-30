@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./../index.css";
+import axios from "axios";
 
 const { Header, Content, Footer } = Layout;
 
 const LAYOUT = ({ children }) => {
+  const [user, setUser] = useState();
+  const getUSer = async () => {
+    const id = localStorage.getItem("token");
+    const res = await axios.post("/api/v1/get-user", {
+      id: id,
+    });
+    if (res.data.success) {
+      setUser(res.data.user.name);
+    }
+  };
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUSer();
+  }, []);
   return (
     <Layout>
       <Header
@@ -27,7 +42,7 @@ const LAYOUT = ({ children }) => {
         <h4 className="headerHeading">ZedBlock ToDo Lists Assignment</h4>
         <button
           className="btn btn-secondary"
-          style={{width:'110px'}}
+          style={{ width: "110px" }}
           onClick={() => {
             localStorage.clear();
             navigate("/login");
@@ -47,13 +62,13 @@ const LAYOUT = ({ children }) => {
             margin: "16px 0",
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Hello {user}</Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
             padding: 24,
             background: colorBgContainer,
-            height: "73vh",
+            // height: "73vh",
           }}
         >
           {children}

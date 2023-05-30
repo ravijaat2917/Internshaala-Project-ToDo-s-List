@@ -16,6 +16,9 @@ const listSchema = mongoose.Schema(
     },
     completed: {
       type: Boolean,
+    },
+    deleted: {
+      type: Boolean,
       default: false,
     },
   },
