@@ -28,8 +28,8 @@ const EditListPage = () => {
     //   console.log("Success:", values.completed);
     const res = await axios.post("/api/v1/update-list", {
       id: params.id,
-      title: values.title,
-      description: values.description,
+      title: title,
+      description: description,
       completed: values.completed,
     });
     if (res?.data.success) {
@@ -46,11 +46,11 @@ const EditListPage = () => {
       const res = await axios.post("/api/v1/delete-list", {
         id: params.id,
       });
-        if (res.data.success) {
-            message.success(res.data.message);
-            navigate('/')
-            window.location.reload();
-        }
+      if (res.data.success) {
+        message.success(res.data.message);
+        navigate("/");
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
       message.error("Error in Deleting list");
@@ -82,7 +82,47 @@ const EditListPage = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="on"
       >
-        <Form.Item
+        <div className="mb-3" style={{ marginLeft: "20%", marginTop: "30px" }}>
+          <label
+            style={{
+              margin: "3px",
+              fontSize: "20px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            TITLE
+          </label>
+          <input
+            type="text"
+            required
+            maxLength={50}
+            value={title}
+            placeholder="write a name"
+            className="form-control "
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="mb-3" style={{ marginLeft: "20%", marginTop: "30px" }}>
+          <label
+            style={{
+              margin: "3px",
+              fontSize: "20px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            Description
+          </label>
+          <textarea
+            type="text"
+            required
+            maxLength={120}
+            value={description}
+            placeholder="write a description"
+            className="form-control"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        {/* <Form.Item
           label="Title"
           name="title"
           rules={[
@@ -106,7 +146,7 @@ const EditListPage = () => {
           ]}
         >
           <Input defaultValue={description} />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           name="completed"
@@ -133,7 +173,7 @@ const EditListPage = () => {
           <Button
             className="btn btn-danger text-center"
             onClick={() => {
-              handleDelete()
+              handleDelete();
             }}
             style={{
               textAlign: "center",

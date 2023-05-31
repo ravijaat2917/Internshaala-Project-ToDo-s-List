@@ -93,6 +93,7 @@ const HomePage = () => {
                           type="text"
                           className="form-control"
                           id="title"
+                          maxLength={50}
                           onChange={() => {
                             setTitle(document.getElementById("title").value);
                             if (title.length > 50) {
@@ -106,6 +107,7 @@ const HomePage = () => {
                           Description
                         </label>
                         <textarea
+                          maxLength={120}
                           className="form-control"
                           id="description"
                           defaultValue={""}
